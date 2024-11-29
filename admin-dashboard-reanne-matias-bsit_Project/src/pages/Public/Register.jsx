@@ -59,27 +59,27 @@ function Register() {
   const checkExistingEmail = async (email) => {
     try {
       const response = await axios.get(`/admin/check-email?email=${email}`);
-      return response.data.exists; // Assuming your API returns { exists: true/false }
+      return response.data.exists; 
     } catch (error) {
       console.error("Error checking email:", error);
-      return false; // Default to not existing if there's an error
+      return false; 
     }
   };
 
   const handleRegistration = async () => {
-    // Check if email already exists
+    
     const emailExists = await checkExistingEmail(email);
     if (emailExists) {
       setErrorText('Email already exists. Please log in.');
       setTimeout(() => {
-        navigate('/'); // Redirect to login page
-      }, 2000); // Give a 2-second notice before redirecting
+        navigate('/'); 
+      }, 2000); 
       return;
     }
 
     const userData = { email, password, firstName, middleName, lastName, contactNo, role };
     setLoadingStatus('loading');
-    setErrorText(''); // Clear any previous error messages
+    setErrorText(''); 
 
     try {
       const response = await axios.post('/admin/register', userData, {

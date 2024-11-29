@@ -1,35 +1,59 @@
-/* Main container to hold both the searched movies and editing form */
+
 .container {
-  display: flex;                 /* Use flexbox for layout */
-  justify-content: space-between; /* Space out children */
+  display: flex;                 
+  justify-content: space-between; 
 }
 
-/* Styling for the searched movie area */
+
 .searched-movie {
-  max-height: 200px;           /* Set the max height for the scrollable area */
-  overflow-y: auto;            /* Enable vertical scrolling */
-  border: 1px solid #ddd;      /* Optional: border for visual separation */
-  border-radius: 5px;          /* Optional: rounded corners */
-  padding: 10px;               /* Padding for content */
-  background-color: #fff;      /* White background for the container */
-  width: 300px;                /* Set width for the scrollable area */
-  margin-left: 20px;           /* Add margin to separate from the form */
+  max-height: 200px;           
+  overflow-y: auto;            
+  border: 1px solid #ddd;      
+  border-radius: 5px;          
+  padding: 10px;               
+  background-color: #fff;      
+  width: 300px;                
+  margin-left: 20px;           
 }
 
-/* Form container styling */
+
 .edit-container {
-  flex-grow: 1;                /* Allow the form to grow to fill available space */
-  margin-right: 20px;          /* Optional: margin to separate from the edge */
+  flex-grow: 1;                
+  margin-right: 20px;          
 }
 
-/* Hover effect for search container paragraphs */
+
 .search-container p:hover {
-  background-color: lightblue; /* Light blue background on hover */
+  background-color: lightblue; 
 }
 
-/* Poster image styling */
+
 .poster-image {
-  width: 150px;    /* Set width for the poster image */
-  height: auto;    /* Maintain aspect ratio */
+  width: 150px;    
+  height: auto;    
 }
+.photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.photo-item {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.video-gallery iframe {
+  margin-bottom: 15px;
+}
+
+.cast-list {
+  padding-left: 20px;
+}
+
+.cast-list li {
+  margin: 5px 0;
+}
+
 

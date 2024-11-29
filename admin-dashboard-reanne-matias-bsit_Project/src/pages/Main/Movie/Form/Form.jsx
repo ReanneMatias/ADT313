@@ -19,6 +19,9 @@ const Form = () => {
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [castAndCrew, setCastAndCrew] = useState([]);
+  const [photos, setPhotos] = useState([]);
+  const [videos, setVideos] = useState([]);
 
   let { movieId } = useParams();
   const navigate = useNavigate();
@@ -38,8 +41,7 @@ const Form = () => {
       url: `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${currentPage}`,
       headers: {
         Accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI",
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI", // Replace with your actual API key
       },
     })
       .then((response) => {
@@ -74,85 +76,39 @@ const Form = () => {
       voteAverage: movie.vote_average,
     });
     setError("");
+
+    
+    fetchMovieDetails(movie.id);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-    setError("");
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      setCurrentPage(1);
-      handleSearch();
-    }
-  };
-
-  const validateForm = () => {
-    const errors = [];
-    if (!formData.title) errors.push("Title is required");
-    if (!formData.overview) errors.push("Overview is required");
-    if (!formData.releaseDate) errors.push("Release date is required");
-    if (!formData.popularity) errors.push("Popularity is required");
-    if (!formData.voteAverage) errors.push("Vote average is required");
-    if (!selectedMovie) errors.push("Please select a movie from search results");
-    return errors;
-  };
-
-  const handleSave = async () => {
-    const validationErrors = validateForm();
-    if (validationErrors.length > 0) {
-      setError(validationErrors.join(", "));
-      return;
-    }
-
+  const fetchMovieDetails = (movieId) => {
     setIsLoading(true);
-    setError("");
 
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      setError("You must be logged in to perform this action");
-      setIsLoading(false);
-      return;
-    }
+    
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
+        headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI" }, // Ensure this API key is correct
+      })
+      .then((response) => setCastAndCrew(response.data.cast))
+      .catch((error) => console.error("Error fetching cast and crew", error));
 
-    const data = {
-      tmdbId: selectedMovie.id,
-      title: formData.title,
-      overview: formData.overview,
-      popularity: parseFloat(formData.popularity),
-      releaseDate: formData.releaseDate,
-      voteAverage: parseFloat(formData.voteAverage),
-      backdropPath: `https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}`,
-      posterPath: `https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`,
-      isFeatured: 0,
-    };
+    
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${movieId}/images`, {
+        headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI" }, // Ensure this API key is correct
+      })
+      .then((response) => setPhotos(response.data.backdrops))
+      .catch((error) => console.error("Error fetching photos", error));
 
-    try {
-      await axios({
-        method: movieId ? "patch" : "post",
-        url: movieId ? `/movies/${movieId}` : "/movies",
-        data: data,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      navigate("/main/movies");
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || 
-        "Unable to save the movie. Please try again later.";
-      setError(errorMessage);
-    } finally {
-      setIsLoading(false);
-    }
+    
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, {
+        headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI" }, // Ensure this API key is correct
+      })
+      .then((response) => setVideos(response.data.results))
+      .catch((error) => console.error("Error fetching videos", error))
+      .finally(() => setIsLoading(false));
   };
-
-  const handleUpdate = handleSave;
 
   useEffect(() => {
     if (movieId) {
@@ -168,7 +124,10 @@ const Form = () => {
             original_title: response.data.title,
             overview: response.data.overview,
             popularity: response.data.popularity,
-            poster_path: response.data.posterPath.replace("https://image.tmdb.org/t/p/original/", ""),
+            poster_path: response.data.posterPath.replace(
+              "https://image.tmdb.org/t/p/original/",
+              ""
+            ),
             release_date: response.data.releaseDate,
             vote_average: response.data.voteAverage,
           };
@@ -180,6 +139,7 @@ const Form = () => {
             releaseDate: response.data.releaseDate,
             voteAverage: response.data.voteAverage,
           });
+          fetchMovieDetails(response.data.tmdbId); // Fetch additional data for editing movie
         })
         .catch(() => {
           setError("Unable to load movie details. Please try again later.");
@@ -189,6 +149,26 @@ const Form = () => {
         });
     }
   }, [movieId]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCastChange = (index, field, value) => {
+    const updatedCast = [...castAndCrew];
+    updatedCast[index][field] = value;
+    setCastAndCrew(updatedCast);
+  };
+  
+
+  const handleSave = () => {
+    
+    console.log("Saving movie data:", formData, castAndCrew);
+  };
 
   return (
     <>
@@ -208,7 +188,7 @@ const Form = () => {
                 setQuery(event.target.value);
                 setError("");
               }}
-              onKeyPress={handleKeyPress}
+              onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               placeholder="Enter movie title..."
               disabled={isLoading}
             />
@@ -224,8 +204,8 @@ const Form = () => {
             </button>
             <div className="searched-movie">
               {searchedMovieList.map((movie) => (
-                <p 
-                  key={movie.id} 
+                <p
+                  key={movie.id}
                   onClick={() => handleSelectMovie(movie)}
                   className={selectedMovie?.id === movie.id ? "selected" : ""}
                 >
@@ -280,7 +260,6 @@ const Form = () => {
           <div className="field">
             Overview:
             <textarea
-              rows={10}
               name="overview"
               value={formData.overview}
               onChange={handleInputChange}
@@ -291,18 +270,18 @@ const Form = () => {
           <div className="field">
             Popularity:
             <input
-              type="number"
+              type="text"
               name="popularity"
               value={formData.popularity}
               onChange={handleInputChange}
               disabled={isLoading}
-              step="0.1"
+              required
             />
           </div>
           <div className="field">
             Release Date:
             <input
-              type="date"
+              type="text"
               name="releaseDate"
               value={formData.releaseDate}
               onChange={handleInputChange}
@@ -313,24 +292,97 @@ const Form = () => {
           <div className="field">
             Vote Average:
             <input
-              type="number"
+              type="text"
               name="voteAverage"
               value={formData.voteAverage}
               onChange={handleInputChange}
               disabled={isLoading}
-              step="0.1"
-              min="0"
-              max="10"
+              required
             />
           </div>
 
-          <button 
-            type="button" 
-            onClick={movieId ? handleUpdate : handleSave}
-            disabled={isLoading}
-          >
-            {isLoading ? "Saving..." : (movieId ? "Update" : "Save")}
-          </button>
+          {/* Cast and Crew */}
+          <div className="cast-and-crew">
+            <h3>Cast & Crew</h3>
+            {castAndCrew.length > 0 ? (
+              <ul>
+                {castAndCrew.slice(0, 3).map((castMember, index) => (
+                  <li key={castMember.cast_id}>
+                    <input
+                      type="text"
+                      value={castMember.name}
+                      onChange={(e) =>
+                        handleCastChange(index, "name", e.target.value)
+                      }
+                    />
+                    <input
+                      type="text"
+                      value={castMember.character}
+                      onChange={(e) =>
+                        handleCastChange(index, "character", e.target.value)
+                      }
+                    />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No cast and crew available</p>
+            )}
+          </div>
+
+          {/* Photos */}
+          <div className="photos">
+            <h3>Photos</h3>
+            {photos.length > 0 ? (
+              <div className="photo-gallery">
+                {photos.slice(0, 3).map((photo) => (
+                  <img
+                    key={photo.file_path}
+                    src={`https://image.tmdb.org/t/p/original${photo.file_path}`}
+                    alt="Movie Photo"
+                    className="photo-item"
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>No photos available</p>
+            )}
+          </div>
+
+          {/* Videos */}
+          <div className="videos">
+            <h3>Videos</h3>
+            {videos.length > 0 ? (
+              <div>
+                {videos.slice(0, 1).map((video) => (
+                  <iframe
+                    key={video.id}
+                    width="100%"
+                    height="400"
+                    src={`https://www.youtube.com/embed/${video.key}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                ))}
+              </div>
+            ) : (
+              <p>No videos available</p>
+            )}
+          </div>
+
+          <div className="form-buttons">
+            <button type="button" onClick={handleSave} disabled={isLoading}>
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/Main")}
+              disabled={isLoading}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </>
@@ -338,6 +390,31 @@ const Form = () => {
 };
 
 export default Form;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

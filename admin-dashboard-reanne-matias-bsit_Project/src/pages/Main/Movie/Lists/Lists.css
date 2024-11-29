@@ -1,12 +1,14 @@
 .lists-container {
   padding: 20px;
   background-color: #f9f9f9;
+  border-radius: 10px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .create-container {
   margin-bottom: 20px;
-  display: flex; /* Use flexbox for better alignment */
-  align-items: center; /* Center items vertically */
+  display: flex;
+  align-items: center;
 }
 
 .create-container button {
@@ -16,7 +18,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 10px; /* Add spacing between button and input */
+  margin-right: 10px;
 }
 
 .create-container button:hover {
@@ -27,26 +29,28 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 200px; /* Fixed width for the search input */
-  transition: border-color 0.3s; /* Smooth transition for focus */
+  width: 250px; 
+  transition: border-color 0.3s;
 }
 
 .create-container .search-input:focus {
-  border-color: #4CAF50; /* Change border color on focus */
-  outline: none; /* Remove default outline */
+  border-color: #4CAF50;
+  outline: none;
 }
 
 .table-container {
-  max-height: 400px; /* Set a maximum height for the table */
-  overflow-y: auto; /* Enable vertical scrolling */
-  border: 1px solid #ddd; /* Add a border around the table */
-  border-radius: 5px; /* Rounded corners */
+  max-height: 500px; 
+  overflow-y: auto; 
+  overflow-x: hidden; 
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: white;
 }
 
 .movie-lists {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: none; 
 }
 
 .movie-lists th,
@@ -58,10 +62,13 @@
 
 .movie-lists th {
   background-color: #f2f2f2;
+  position: sticky; 
+  top: 0; 
+  z-index: 1; 
 }
 
-.movie-lists tbody tr:hover { /* Add hover effect for table rows */
-  background-color: #f9f9f9; /* Light gray background on hover */
+.movie-lists tbody tr:hover {
+  background-color: #f9f9f9;
 }
 
 .poster-img {
@@ -96,6 +103,7 @@
 .delete-button:hover {
   background-color: #d32f2f;
 }
+
 
 
 

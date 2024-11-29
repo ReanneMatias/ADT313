@@ -1,101 +1,102 @@
-/* Login.css */
-
 .Login {
-  height: 100vh; /* Full viewport height */
+  height: 100vh; 
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  background-color: #282c34; /* Dark background color */
+  justify-content: center;
+  align-items: center; 
+  background-color: #282c34;
 }
 
 .main-container {
   display: flex;
-  justify-content: center; /* Center the form */
-  align-items: center; /* Center the form */
+  justify-content: center; 
+  align-items: center; 
 }
 
 .form-container {
-  padding: 2rem; /* Padding inside the form */
-  border: 1px solid #61dafb; /* Light blue border around the form */
-  border-radius: 0.5rem; /* Rounded corners */
-  background-color: #ffffff; /* White background for form */
-  width: 350px; /* Fixed width for the form */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  padding: 2rem; 
+  border: 1px solid #61dafb; 
+  border-radius: 0.5rem; 
+  background-color: #ffffff; 
+  width: 350px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center children horizontally */
+  flex-direction: column; 
+  align-items: center; 
 }
 
 h3 {
-  color: #61dafb; /* Cool blue color for heading */
-  margin-bottom: 1rem; /* Space below the heading */
+  color: #61dafb; 
+  margin-bottom: 1rem; 
 }
 
 .form-group {
-  display: flex; /* Use flexbox for alignment */
-  flex-direction: column; /* Stack label and input vertically */
-  margin-bottom: 12px; /* Space below each form group */
-  width: 100%; /* Full width for form groups */
+  display: flex; 
+  flex-direction: column; 
+  margin-bottom: 12px; 
+  width: 100%; 
 }
 
 label {
-  color: #282c34; /* Dark text color for labels */
-  margin-bottom: 0.5rem; /* Space below labels */
+  color: #282c34; 
+  margin-bottom: 0.5rem; 
 }
 
 input {
-  padding: 0.5rem; /* Padding inside input */
-  border: 1px solid #ccc; /* Border for input */
-  border-radius: 0.25rem; /* Rounded corners for input */
-  font-size: 1rem; /* Font size for input */
-  width: 100%; /* Full width for inputs */
+  padding: 0.5rem; 
+  border: 1px solid #ccc; 
+  border-radius: 0.25rem;
+  font-size: 1rem; 
+  width: 100%; 
 }
 
 .errors {
-  color: red; /* Red color for error messages */
-  font-size: 12px; /* Font size for error messages */
-  margin-top: 0.25rem; /* Space above error messages */
-  text-align: center; /* Center error messages */
+  color: red; 
+  font-size: 12px; 
+  margin-top: 0.25rem; 
+  text-align: center; 
 }
 
 .show-password {
   margin-bottom: 1rem;
-  cursor: pointer; /* Pointer cursor for clickable text */
-  color: #61dafb; /* Cool blue color for show password */
+  cursor: pointer; 
+  color: #61dafb; 
 }
 
 .submit-container {
-  margin-top: 12px; /* Space above submit button */
-  text-align: center; /* Center the button */
+  margin-top: 12px;
+  text-align: center; 
 }
 
 button {
-  background-color: #61dafb; /* Light blue background for button */
-  color: #282c34; /* Dark text color for button */
-  border: none; /* No border */
-  padding: 0.75rem 1.5rem; /* Padding for button */
-  border-radius: 0.25rem; /* Rounded corners for button */
-  font-size: 1rem; /* Font size for button */
-  cursor: pointer; /* Pointer cursor for button */
-  transition: background-color 0.3s; /* Transition for hover effect */
+  background-color: #61dafb;
+  color: #282c34; 
+  border: none; 
+  padding: 0.75rem 1.5rem; 
+  border-radius: 0.25rem; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
 }
 
 button:hover {
-  background-color: #21a1f1; /* Darker blue on hover */
+  background-color: #21a1f1; 
 }
 
 .register-container {
-  text-align: center; /* Center register link */
-  margin-top: 1rem; /* Space above register link */
+  text-align: center; 
+  margin-top: 1rem; 
 }
 
 a {
-  color: #61dafb; /* Cool blue color for links */
-  text-decoration: none; /* No underline for links */
+  color: #61dafb; 
+  text-decoration: none; 
 }
 
 a:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline; 
 }
+
+
+
 
 

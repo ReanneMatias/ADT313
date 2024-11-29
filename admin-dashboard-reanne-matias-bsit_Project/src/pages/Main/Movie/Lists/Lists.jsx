@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import './Lists.css'; // Ensure this CSS file exists for styling
+import './Lists.css'; 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -43,7 +43,7 @@ const Lists = () => {
     }
   };
 
-  // Filtered movie list based on search term
+  
   const filteredMovies = lists.filter(movie =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
