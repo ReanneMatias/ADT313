@@ -1,0 +1,101 @@
+.lists-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.create-container {
+  margin-bottom: 20px;
+  display: flex; /* Use flexbox for better alignment */
+  align-items: center; /* Center items vertically */
+}
+
+.create-container button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px; /* Add spacing between button and input */
+}
+
+.create-container button:hover {
+  background-color: #45a049;
+}
+
+.create-container .search-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px; /* Fixed width for the search input */
+  transition: border-color 0.3s; /* Smooth transition for focus */
+}
+
+.create-container .search-input:focus {
+  border-color: #4CAF50; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.table-container {
+  max-height: 400px; /* Set a maximum height for the table */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ddd; /* Add a border around the table */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.movie-lists {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.movie-lists th,
+.movie-lists td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.movie-lists th {
+  background-color: #f2f2f2;
+}
+
+.movie-lists tbody tr:hover { /* Add hover effect for table rows */
+  background-color: #f9f9f9; /* Light gray background on hover */
+}
+
+.poster-img {
+  width: 50px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.action-button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #1976D2;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+
+

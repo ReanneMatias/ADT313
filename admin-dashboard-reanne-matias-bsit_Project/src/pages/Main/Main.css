@@ -1,0 +1,58 @@
+.Main {
+  display: flex;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.Main .container {
+  display: flex;
+  width: 100vw;
+}
+
+.Main .container .outlet {
+  flex-grow: 3;
+  padding: 1rem;
+  background-color: #f9f9f9; /* Light background for content area */
+}
+
+.Main .container .navigation {
+  background-color: #1e1e2f; /* Darker background for navigation */
+  padding-top: 40px;
+  height: 100vh;
+  color: #ffffff; /* White text color for better contrast */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.Main .container .navigation ul {
+  list-style: none;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.Main .container .navigation ul li {
+  padding: 10px 30px; /* Adjusted padding for a cleaner look */
+  transition: background 0.3s, color 0.3s; /* Smooth transition for background and text color */
+}
+
+.Main .container .navigation ul li.active,
+.Main .container .navigation ul li:hover {
+  background: #3f51b5; /* Blue background on hover and active */
+  color: #ffffff; /* Keep text white for readability */
+}
+
+.Main .container .navigation ul li a {
+  text-decoration: none;
+  color: inherit; /* Inherit the color from parent */
+  font-weight: 500; /* Slightly bold for better visibility */
+}
+
+.Main .container .navigation ul li.logout {
+  cursor: pointer;
+  background: #ff4757; /* Red background for logout */
+  color: white; /* White text for logout */
+}
+
+.Main .container .navigation ul li.logout:hover {
+  background: #e84118; /* Darker red on hover */
+}
