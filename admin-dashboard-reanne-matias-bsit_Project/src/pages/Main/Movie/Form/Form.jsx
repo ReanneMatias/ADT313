@@ -41,7 +41,7 @@ const Form = () => {
       url: `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${currentPage}`,
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI", // Replace with your actual API key
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5M2Q4YTQwMGVlMzFkMzQ4MGYzNjdlMjk2OGMzODhhZSIsIm5iZiI6MTczMzE1MTAyNS4yNTQwMDAyLCJzdWIiOiI2NzRkYzkzMTc0NzM3NzhiYmQ5YWY3YzUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4wKA26LOjYKY3fGsk-zmp0YOvGr7YPfi_IWUf6W7MSE', // Replace with your actual API key
       },
     })
       .then((response) => {
@@ -87,7 +87,8 @@ const Form = () => {
     
     axios
       .get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
-        headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI" }, // Ensure this API key is correct
+        headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5M2Q4YTQwMGVlMzFkMzQ4MGYzNjdlMjk2OGMzODhhZSIsIm5iZiI6MTczMzE1MTAyNS4yNTQwMDAyLCJzdWIiOiI2NzRkYzkzMTc0NzM3NzhiYmQ5YWY3YzUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4wKA26LOjYKY3fGsk-zmp0YOvGr7YPfi_IWUf6W7MSE'
+ }, 
       })
       .then((response) => setCastAndCrew(response.data.cast))
       .catch((error) => console.error("Error fetching cast and crew", error));
@@ -95,7 +96,8 @@ const Form = () => {
     
     axios
       .get(`https://api.themoviedb.org/3/movie/${movieId}/images`, {
-        headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI" }, // Ensure this API key is correct
+        headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5M2Q4YTQwMGVlMzFkMzQ4MGYzNjdlMjk2OGMzODhhZSIsIm5iZiI6MTczMzE1MTAyNS4yNTQwMDAyLCJzdWIiOiI2NzRkYzkzMTc0NzM3NzhiYmQ5YWY3YzUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4wKA26LOjYKY3fGsk-zmp0YOvGr7YPfi_IWUf6W7MSE'
+ }, 
       })
       .then((response) => setPhotos(response.data.backdrops))
       .catch((error) => console.error("Error fetching photos", error));
@@ -103,7 +105,8 @@ const Form = () => {
     
     axios
       .get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, {
-        headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI" }, // Ensure this API key is correct
+        headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5M2Q4YTQwMGVlMzFkMzQ4MGYzNjdlMjk2OGMzODhhZSIsIm5iZiI6MTczMzE1MTAyNS4yNTQwMDAyLCJzdWIiOiI2NzRkYzkzMTc0NzM3NzhiYmQ5YWY3YzUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4wKA26LOjYKY3fGsk-zmp0YOvGr7YPfi_IWUf6W7MSE'
+ }, 
       })
       .then((response) => setVideos(response.data.results))
       .catch((error) => console.error("Error fetching videos", error))
@@ -139,7 +142,7 @@ const Form = () => {
             releaseDate: response.data.releaseDate,
             voteAverage: response.data.voteAverage,
           });
-          fetchMovieDetails(response.data.tmdbId); // Fetch additional data for editing movie
+          fetchMovieDetails(response.data.tmdbId); 
         })
         .catch(() => {
           setError("Unable to load movie details. Please try again later.");
@@ -165,11 +168,105 @@ const Form = () => {
   };
   
 
-  const handleSave = () => {
-    
-    console.log("Saving movie data:", formData, castAndCrew);
+  const validateForm = () => {
+    const errors = [];
+    if (!formData.title) errors.push("Title is required");
+    if (!formData.overview) errors.push("Overview is required");
+    if (!formData.releaseDate) errors.push("Release date is required");
+    if (!formData.popularity) errors.push("Popularity is required");
+    if (!formData.voteAverage) errors.push("Vote average is required");
+    if (!selectedMovie) errors.push("Please select a movie from search results");
+    return errors;
   };
 
+  const handleSave = async () => {
+    const validationErrors = validateForm();
+    if (validationErrors.length > 0) {
+      setError(validationErrors.join(", "));
+      return;
+    }
+
+    setIsLoading(true);
+    setError("");
+    
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      setError("You must be logged in to perform this action");
+      setIsLoading(false);
+      return;
+    }
+    
+    const data = {
+      tmdbId: selectedMovie.id,
+      title: formData.title,
+      overview: formData.overview,
+      popularity: parseFloat(formData.popularity),
+      releaseDate: formData.releaseDate,
+      voteAverage: parseFloat(formData.voteAverage),
+      backdropPath: `https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}`,
+      posterPath: `https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`,
+      isFeatured: 0,
+      videos: formData.videos || [], 
+      cast: formData.cast || [], 
+    };
+    
+    console.log("Saving data:", data);
+try {
+    await axios({
+        method: movieId ? "patch" : "post",
+        url: movieId ? `/movies/${movieId}` : "/movies",
+        data,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    navigate("/main/movies");
+} catch (error) {
+    console.error("Error saving movie:", error.response?.data || error.message);
+}
+ finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleUpdate = handleSave;
+
+  useEffect(() => {
+    if (movieId) {
+      setIsLoading(true);
+      setError("");
+
+      axios.get(`/movies/${movieId}`)
+      .then((response) => {
+        const movieData = response.data;
+        setSelectedMovie({
+          id: movieData.tmdbId,
+          original_title: movieData.title,
+          overview: movieData.overview,
+          popularity: movieData.popularity,
+          poster_path: movieData.posterPath.replace("https://image.tmdb.org/t/p/original/", ""),
+          release_date: movieData.releaseDate,
+          vote_average: movieData.voteAverage,
+        });
+        setFormData({
+          title: movieData.title,
+          overview: movieData.overview,
+          popularity: movieData.popularity,
+          releaseDate: movieData.releaseDate,
+          voteAverage: movieData.voteAverage,
+          videos: movieData.videos || [], 
+          cast: movieData.cast || [],
+        });
+      })
+      .catch(() => {
+        setError("Unable to load movie details. Please try again later.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+  }, [movieId]);
+  
   return (
     <>
       <h1>{movieId !== undefined ? "Edit" : "Create"} Movie</h1>
@@ -301,7 +398,7 @@ const Form = () => {
             />
           </div>
 
-          {/* Cast and Crew */}
+          
           <div className="cast-and-crew">
             <h3>Cast & Crew</h3>
             {castAndCrew.length > 0 ? (
@@ -330,7 +427,7 @@ const Form = () => {
             )}
           </div>
 
-          {/* Photos */}
+          
           <div className="photos">
             <h3>Photos</h3>
             {photos.length > 0 ? (
@@ -349,7 +446,7 @@ const Form = () => {
             )}
           </div>
 
-          {/* Videos */}
+          
           <div className="videos">
             <h3>Videos</h3>
             {videos.length > 0 ? (
@@ -357,8 +454,8 @@ const Form = () => {
                 {videos.slice(0, 1).map((video) => (
                   <iframe
                     key={video.id}
-                    width="100%"
-                    height="400"
+                    width="200%"
+                    height="600"
                     src={`https://www.youtube.com/embed/${video.key}`}
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -371,18 +468,21 @@ const Form = () => {
             )}
           </div>
 
-          <div className="form-buttons">
-            <button type="button" onClick={handleSave} disabled={isLoading}>
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("/Main")}
-              disabled={isLoading}
-            >
-              Cancel
-            </button>
-          </div>
+          <div className="actions">
+          <button onClick={handleSave} disabled={isLoading}>
+      Save
+    </button>
+
+
+  <button
+    type="button"
+    onClick={() => navigate(-1)} 
+    disabled={isLoading}
+    className="cancel-button"
+  >
+    Cancel
+  </button>
+</div>
         </form>
       </div>
     </>
