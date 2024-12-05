@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Lists.css'; 
-import { useEffect, useState } from 'react';
+import './Lists.css';
 import axios from 'axios';
 
 const Lists = () => {
@@ -11,24 +11,44 @@ const Lists = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
+  const genres = ['Action', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Sci-Fi'];
+  const generateRandomGenre = () =>
+    genres[Math.floor(Math.random() * genres.length)];
+
+  const generateRandomRating = () =>
+    (Math.random() * 5).toFixed(1); 
+
+  
   const getMovies = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get('/movies');
-      setLists(response.data);
-    } catch (error) {
-      setError("Error fetching movies");
-      console.error("Error fetching movies:", error);
+      const response = await axios.get('/movies', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      // Enhance data with random genres and ratings
+      const enhancedData = response.data.map((movie) => ({
+        ...movie,
+        genre: generateRandomGenre(),
+        rating: generateRandomRating(),
+      }));
+
+      setLists(enhancedData);
+      setError(null);
+    } catch (err) {
+      setError('Error fetching movies. Please try again later.');
+      console.error('Error fetching movies:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    getMovies();
-  }, []);
-
   const handleDelete = async (id) => {
-    const isConfirm = window.confirm('Are you sure that you want to delete this data?');
+    const isConfirm = window.confirm(
+      'Are you sure you want to delete this movie?'
+    );
     if (isConfirm) {
       try {
         await axios.delete(`/movies/${id}`, {
@@ -37,48 +57,52 @@ const Lists = () => {
           },
         });
         setLists((prevLists) => prevLists.filter((movie) => movie.id !== id));
-      } catch (error) {
-        console.error("Error deleting movie:", error);
+      } catch (err) {
+        console.error('Error deleting movie:', err);
+        alert('Failed to delete movie. Please try again later.');
       }
     }
   };
 
-  
-  const filteredMovies = lists.filter(movie =>
+  const filteredMovies = lists.filter((movie) =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  useEffect(() => {
+    getMovies();
+  }, []);
+
   return (
-    <div className='lists-container'>
-      <div className='create-container'>
+    <div className="lists-container">
+      <div className="create-container">
         <button
-          type='button'
+          type="button"
+          className="create-button"
           onClick={() => navigate('/main/movies/form')}
         >
-          Create new
+          Create New Movie
         </button>
         <input
-          type='text'
-          placeholder='Search movies...'
+          type="text"
+          placeholder="Search movies..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className='search-input'
+          className="search-input"
         />
       </div>
-      <div className='table-container'>
+      <div className="table-container">
         {loading ? (
           <p>Loading movies...</p>
         ) : error ? (
-          <p>{error}</p>
+          <p className="error-message">{error}</p>
         ) : (
-          <table className='movie-lists'>
+          <table className="movie-lists">
             <thead>
               <tr>
-                <th>Poster</th>
-                <th>ID</th>
+                <th>#</th>
                 <th>Title</th>
-                <th>Year</th>
-                <th>Director</th>
+                <th>Genre</th>
+                <th>Rating</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -86,28 +110,23 @@ const Lists = () => {
               {filteredMovies.length > 0 ? (
                 filteredMovies.map((movie, index) => (
                   <tr key={movie.id}>
-                    <td>
-                      <img 
-                        src={movie.poster ? movie.poster : 'https://via.placeholder.com/50x75'} 
-                        alt={movie.title} 
-                        className="poster-img" 
-                      />
-                    </td>
-                    <td>{index + 1}</td> {/* Sequential ID */}
+                    <td>{index + 1}</td>
                     <td>{movie.title}</td>
-                    <td>{movie.year}</td>
-                    <td>{movie.director}</td>
+                    <td>{movie.genre}</td>
+                    <td>{movie.rating}</td>
                     <td>
                       <button
-                        type='button'
-                        className='action-button edit-button'
-                        onClick={() => navigate('/main/movies/form/' + movie.id)}
+                        type="button"
+                        className="action-button edit-button"
+                        onClick={() =>
+                          navigate('/main/movies/form/' + movie.id)
+                        }
                       >
                         Edit
                       </button>
                       <button
-                        type='button'
-                        className='action-button delete-button'
+                        type="button"
+                        className="action-button delete-button"
                         onClick={() => handleDelete(movie.id)}
                       >
                         Delete
@@ -117,7 +136,7 @@ const Lists = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6">No movies found.</td>
+                  <td colSpan="5">No movies found.</td>
                 </tr>
               )}
             </tbody>
@@ -129,6 +148,15 @@ const Lists = () => {
 };
 
 export default Lists;
+
+
+
+
+
+
+
+
+
 
 
 

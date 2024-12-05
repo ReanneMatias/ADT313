@@ -1,108 +1,142 @@
-.lists-container {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-}
 
-.create-container {
-  margin-bottom: 20px;
+.lists-container {
+  background: linear-gradient(90deg, #dbe6f6, #c5796d);
+  padding: 20px;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.create-container button {
-  padding: 10px 15px;
-  background-color: #4CAF50;
+
+.create-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 20px;
+}
+
+.create-button {
+  background-color: #4caf50;
   color: white;
+  font-size: 18px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-right: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-.create-container button:hover {
+.create-button:hover {
   background-color: #45a049;
+  transform: scale(1.05);
 }
 
-.create-container .search-input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 250px; 
-  transition: border-color 0.3s;
+
+.search-input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 300px;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
-.create-container .search-input:focus {
-  border-color: #4CAF50;
+.search-input:focus {
   outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px #4caf50;
 }
+
 
 .table-container {
-  max-height: 500px; 
-  overflow-y: auto; 
-  overflow-x: hidden; 
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: white;
+  width: 100%;
+  max-width: 1200px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
 }
+
 
 .movie-lists {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: none; 
 }
 
 .movie-lists th,
 .movie-lists td {
-  padding: 12px;
+  padding: 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 .movie-lists th {
-  background-color: #f2f2f2;
-  position: sticky; 
-  top: 0; 
-  z-index: 1; 
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
 }
 
-.movie-lists tbody tr:hover {
+.movie-lists tr:hover {
   background-color: #f9f9f9;
 }
 
-.poster-img {
-  width: 50px;
-  height: 75px;
-  object-fit: cover;
-  border-radius: 5px;
+.movie-lists td {
+  color: #555;
 }
 
+
 .action-button {
-  padding: 8px 12px;
-  margin: 0 5px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .edit-button {
-  background-color: #2196F3;
+  background-color: #3498db;
   color: white;
 }
 
 .edit-button:hover {
-  background-color: #1976D2;
+  background-color: #2980b9;
+  transform: scale(1.05);
 }
 
 .delete-button {
-  background-color: #f44336;
+  background-color: #e74c3c;
   color: white;
 }
 
 .delete-button:hover {
-  background-color: #d32f2f;
+  background-color: #c0392b;
+  transform: scale(1.05);
 }
+
+
+.error-message {
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
