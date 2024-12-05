@@ -1,316 +1,227 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import "./Dashboard.css";
+import React, { useState, useEffect, useRef } from 'react';
+import './Dashboard.css';
 
 const Dashboard = () => {
-  const [movies, setMovies] = useState([]);
-  const [videos, setVideos] = useState([]);
-  const [pictures, setPictures] = useState([]);
-  const [newMovie, setNewMovie] = useState({
-    title: "",
-    overview: "",
-    poster_path: "",
+  
+  const [user, setUser] = useState({
+    name: 'Reanne Ashley S.R. Matias',
+    token: 'abc123',
+    role: 'admin', 
   });
-  const [newVideo, setNewVideo] = useState({
-    title: "",
-    video_url: "",
-  });
-  const [newPicture, setNewPicture] = useState({
-    title: "",
-    image_url: "",
-  });
-  const [showAddMovieForm, setShowAddMovieForm] = useState(false);
-  const [showAddVideoForm, setShowAddVideoForm] = useState(false);
-  const [showAddPictureForm, setShowAddPictureForm] = useState(false);
-  const [user] = useState({ name: "Admin" }); 
 
-  const tmdbApiKey = "YOUR_TMDB_API_KEY"; 
-  const tmdbBaseUrl = "https://api.themoviedb.org/3/";
+ 
+  const [movies, setMovies] = useState([
+    {
+      id: 1,
+      title: 'Inception',
+      artist: 'Christopher Nolan',
+      photos: ['https://via.placeholder.com/300/FF0000/FFFFFF?text=Inception'],
+      videos: ['https://www.youtube.com/embed/YoHD9XEInc0'],
+    },
+    {
+      id: 2,
+      title: 'Interstellar',
+      artist: 'Christopher Nolan',
+      photos: ['https://via.placeholder.com/300/0000FF/FFFFFF?text=Interstellar'],
+      videos: ['https://www.youtube.com/embed/zSWdZVtXT7E'],
+    },
+    {
+      id: 3,
+      title: 'The Dark Knight',
+      artist: 'Christopher Nolan',
+      photos: ['https://via.placeholder.com/300/008000/FFFFFF?text=The+Dark+Knight'],
+      videos: ['https://www.youtube.com/embed/EXeTwQWrcwY'],
+    },
+  ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        
-        const moviesResponse = await axios.get(
-          `${tmdbBaseUrl}movie/popular?api_key=${tmdbApiKey}`
-        );
-        setMovies(moviesResponse.data.results);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+ 
+  const [recentActivities, setRecentActivities] = useState([]);
+  const activitiesListRef = useRef(null); 
+
+  // Function to Log Activity
+  const logActivity = (activity) => {
+    setRecentActivities((prevActivities) => {
+      const updatedActivities = [activity, ...prevActivities];
+      if (updatedActivities.length > 5) {
+        updatedActivities.pop(); 
       }
+      return updatedActivities;
+    });
+    if (activitiesListRef.current) {
+      activitiesListRef.current.scrollTop = 0; 
+    }
+  };
+
+  
+  const addMovie = () => {
+    const newMovie = {
+      id: movies.length + 1,
+      title: 'New Movie',
+      artist: 'Unknown Artist',
+      photos: [
+        `https://via.placeholder.com/300/${Math.floor(Math.random()*16777215).toString(16)}/FFFFFF?text=New+Movie+${movies.length+1}`,
+      ],
+      videos: ['https://www.youtube.com/embed/dQw4w9WgXcQ'],
     };
-
-    fetchData();
-  }, []);
-
-  
-  const handleMovieInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewMovie((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  
-  const handleVideoInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewVideo((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  
-  const handlePictureInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewPicture((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  
-  const handleAddMovieSubmit = (e) => {
-    e.preventDefault();
-    
-    setMovies([newMovie, ...movies]); 
-    setShowAddMovieForm(false); 
-    setNewMovie({ title: "", overview: "", poster_path: "" });
-  };
-
-  
-  const handleAddVideoSubmit = (e) => {
-    e.preventDefault();
-    
-    setVideos([newVideo, ...videos]); 
-    setShowAddVideoForm(false); 
-    setNewVideo({ title: "", video_url: "" });
+    setMovies([...movies, newMovie]);
+    logActivity(`Added new movie: ${newMovie.title}`);
   };
 
  
-  const handleAddPictureSubmit = (e) => {
-    e.preventDefault();
-    
-    setPictures([newPicture, ...pictures]); 
-    setShowAddPictureForm(false); 
-    setNewPicture({ title: "", image_url: "" });
+  const editMovie = (id) => {
+    const movieToEdit = movies.find((movie) => movie.id === id);
+    const updatedTitle = prompt('Enter new title:', movieToEdit.title);
+    const updatedArtist = prompt('Enter new artist:', movieToEdit.artist);
+
+    const updatedMovies = movies.map((movie) =>
+      movie.id === id
+        ? { ...movie, title: updatedTitle, artist: updatedArtist }
+        : movie
+    );
+    setMovies(updatedMovies);
+    logActivity(`Edited movie: ${updatedTitle}`);
   };
 
   
-  const toggleAddMovieForm = () => {
-    setShowAddMovieForm(!showAddMovieForm);
+  const login = () => {
+    logActivity(`User ${user.name} logged in`);
   };
 
-  
-  const toggleAddVideoForm = () => {
-    setShowAddVideoForm(!showAddVideoForm);
+ 
+  const register = () => {
+    logActivity(`User ${user.name} registered`);
   };
 
-  
-  const toggleAddPictureForm = () => {
-    setShowAddPictureForm(!showAddPictureForm);
+ 
+  const addPhoto = () => {
+    alert('Add Photo functionality coming soon!');
   };
+
+
+  const addVideo = () => {
+    alert('Add Video functionality coming soon!');
+  };
+
+  useEffect(() => {
+    login(); 
+  }, []);
 
   return (
-    <div className="dashboard">
-      {}
-      <header className="header">
-        <h1>Admin Dashboard</h1>
-        <p>Welcome, {user.name}</p>
-      </header>
-
-      {}
-      <main className="features-section">
-        <div className="feature-card">
-          <h3>Movies</h3>
-          <button className="btn-feature" onClick={toggleAddMovieForm}>
-            {showAddMovieForm ? "Cancel" : "Add New Movie"}
-          </button>
+    <div className="dashboard-container">
+      <div className="main-content">
+        <div className="dashboard-header">
+          <h2>Welcome, {user.name}</h2>
         </div>
 
-        <div className="feature-card">
-          <h3>Videos</h3>
-          <button className="btn-feature" onClick={toggleAddVideoForm}>
-            {showAddVideoForm ? "Cancel" : "Add New Video"}
-          </button>
+        
+        <div className="user-section">
+          <h3>User Information</h3>
+          <div className="user-info-card">
+            <p><strong>Name:</strong> {user.name}</p>
+            <p><strong>Token:</strong> {user.token}</p>
+            <p><strong>Role:</strong> {user.role}</p>
+          </div>
         </div>
 
-        <div className="feature-card">
-          <h3>Pictures</h3>
-          <button className="btn-feature" onClick={toggleAddPictureForm}>
-            {showAddPictureForm ? "Cancel" : "Add New Picture"}
-          </button>
+        
+        <div className="movies-section">
+          <h3>Movies & Media</h3>
+          <div className="movies-list">
+            {movies.length > 0 ? (
+              movies.map((movie) => (
+                <div className="movie-card" key={movie.id}>
+                  <h4>{movie.title}</h4>
+                  <p><strong>Artist:</strong> {movie.artist}</p>
+                  <div className="photos">
+                    <h5>Photos</h5>
+                    {movie.photos.map((photo, index) => (
+                      <img key={index} src={photo} alt={`Photo ${index + 1}`} width="300" />
+                    ))}
+                  </div>
+                  <div className="videos">
+                    <h5>Videos</h5>
+                    {movie.videos.map((video, index) => (
+                      <iframe
+                        key={index}
+                        width="560"
+                        height="315"
+                        src={video}
+                        title="Movie Video"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    ))}
+                  </div>
+                  {/* Edit button available only for admins */}
+                  {user.role === 'admin' && (
+                    <button className="edit-movie-btn" onClick={() => editMovie(movie.id)}>
+                      Edit Movie
+                    </button>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>No movies available</p>
+            )}
+          </div>
         </div>
-      </main>
 
-      {}
-      <section className="movies-section">
-        <h2>Popular Movies</h2>
-        <div className="movies-grid">
-          {movies.slice(0, 6).map((movie) => (
-            <div key={movie.id} className="movie-card">
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="movie-poster"
-              />
-              <div className="movie-info">
-                <h4>{movie.title}</h4>
-                <p>{movie.overview.slice(0, 100)}...</p>
-                <button className="btn-more">View More</button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {}
-      <section className="videos-section">
-        <h2>Videos</h2>
-        <div className="videos-grid">
-          {videos.map((video, index) => (
-            <div key={index} className="video-card">
-              <h4>{video.title}</h4>
-              <iframe
-                title={video.title}
-                width="300"
-                height="200"
-                src={video.video_url}
-                frameBorder="0"
-                allowFullScreen
-              ></iframe>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {}
-      <section className="pictures-section">
-        <h2>Pictures</h2>
-        <div className="pictures-grid">
-          {pictures.map((picture, index) => (
-            <div key={index} className="picture-card">
-              <img
-                src={picture.image_url}
-                alt={picture.title}
-                className="picture-img"
-              />
-              <h4>{picture.title}</h4>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {}
-      {showAddMovieForm && (
-        <div className="add-movie-form">
-          <h2>Add New Movie</h2>
-          <form onSubmit={handleAddMovieSubmit}>
-            <label>
-              Title:
-              <input
-                type="text"
-                name="title"
-                value={newMovie.title}
-                onChange={handleMovieInputChange}
-                required
-              />
-            </label>
-            <label>
-              Overview:
-              <textarea
-                name="overview"
-                value={newMovie.overview}
-                onChange={handleMovieInputChange}
-                required
-              />
-            </label>
-            <label>
-              Poster URL:
-              <input
-                type="text"
-                name="poster_path"
-                value={newMovie.poster_path}
-                onChange={handleMovieInputChange}
-                required
-              />
-            </label>
-            <button type="submit" className="btn-submit">
+        
+        {user.role === 'admin' && (
+          <div className="add-movie-section">
+            <button className="add-movie-btn" onClick={addMovie}>
               Add Movie
             </button>
-          </form>
-        </div>
-      )}
-
-      {}
-      {showAddVideoForm && (
-        <div className="add-video-form">
-          <h2>Add New Video</h2>
-          <form onSubmit={handleAddVideoSubmit}>
-            <label>
-              Video Title:
-              <input
-                type="text"
-                name="title"
-                value={newVideo.title}
-                onChange={handleVideoInputChange}
-                required
-              />
-            </label>
-            <label>
-              Video URL:
-              <input
-                type="text"
-                name="video_url"
-                value={newVideo.video_url}
-                onChange={handleVideoInputChange}
-                required
-              />
-            </label>
-            <button type="submit" className="btn-submit">
+            <button className="add-photo-btn" onClick={addPhoto}>
+              Add Photo
+            </button>
+            <button className="add-video-btn" onClick={addVideo}>
               Add Video
             </button>
-          </form>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
 
-      {}
-      {showAddPictureForm && (
-        <div className="add-picture-form">
-          <h2>Add New Picture</h2>
-          <form onSubmit={handleAddPictureSubmit}>
-            <label>
-              Title:
-              <input
-                type="text"
-                name="title"
-                value={newPicture.title}
-                onChange={handlePictureInputChange}
-                required
-              />
-            </label>
-            <label>
-              Image URL:
-              <input
-                type="text"
-                name="image_url"
-                value={newPicture.image_url}
-                onChange={handlePictureInputChange}
-                required
-              />
-            </label>
-            <button type="submit" className="btn-submit">
-              Add Picture
-            </button>
-          </form>
-        </div>
-      )}
+      
+      <div className="recent-activities-sidebar">
+        <h3>Recent Activities</h3>
+        <ul ref={activitiesListRef} className="recent-activities-list">
+          {recentActivities.length > 0 ? (
+            recentActivities.map((activity, index) => (
+              <li key={index}>{activity}</li>
+            ))
+          ) : (
+            <p>No recent activities</p>
+          )}
+        </ul>
+      </div>
     </div>
   );
 };
 
 export default Dashboard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
