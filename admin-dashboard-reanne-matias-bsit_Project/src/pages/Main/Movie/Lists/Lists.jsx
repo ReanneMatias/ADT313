@@ -28,7 +28,7 @@ const Lists = () => {
         },
       });
 
-      // Enhance data with random genres and ratings
+      
       const enhancedData = response.data.map((movie) => ({
         ...movie,
         genre: generateRandomGenre(),
