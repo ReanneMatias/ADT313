@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import MovieCards from '../../../../components/MovieCards/MovieCards';
 import { useMovieContext } from '../../../../context/MovieContext';
 
 const Home = () => {
@@ -11,50 +12,63 @@ const Home = () => {
 
   const getMovies = () => {
     axios
-      .get('/movies') 
+      .get('/movies')
       .then((response) => {
         setMovieList(response.data);
-        const randomIndex = Math.floor(Math.random() * response.data.length);
-        setFeaturedMovie(response.data[randomIndex]);
+        const random = Math.floor(Math.random() * response.data.length);
+        setFeaturedMovie(response.data[random]);
       })
-      .catch((error) => console.error(error));
+      .catch((e) => console.log(e));
   };
 
   useEffect(() => {
     getMovies();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (movieList.length) {
+        const random = Math.floor(Math.random() * movieList.length);
+        setFeaturedMovie(movieList[random]);
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [movieList]);
+
   return (
-    <div className="main-container">
-      <h1 className="page-title">Now Showing</h1>
-      {featuredMovie && (
-        <div className="featured-list-container">
+    <div className="home-container">
+      <h1 className="page-title">CineVerse</h1>
+      {featuredMovie && movieList.length ? (
+        <div className="featured-movie-container">
           <div
-            className="featured-backdrop"
+            className="featured-movie-backdrop"
             style={{
-              backgroundImage: `url(${featuredMovie.backdropPath || featuredMovie.posterPath})`,
+              background: `url(${
+                featuredMovie.backdropPath !==
+                'https://image.tmdb.org/t/p/original/undefined'
+                  ? featuredMovie.backdropPath
+                  : featuredMovie.posterPath
+              }) no-repeat center center / cover`,
             }}
           >
-            <span className="featured-movie-title">{featuredMovie.title}</span>
+            <div className="overlay">
+              <span className="featured-movie-title">{featuredMovie.title}</span>
+            </div>
           </div>
         </div>
+      ) : (
+        <div className="loader"></div>
       )}
-      <div className="list-container">
+      <div className="movie-list-container">
         {movieList.map((movie) => (
-          <div
-            className="movie-card"
+          <MovieCards
             key={movie.id}
+            movie={movie}
             onClick={() => {
-              setMovie(movie);
               navigate(`/view/${movie.id}`);
+              setMovie(movie);
             }}
-          >
-            <img
-              src={movie.posterPath || 'https://via.placeholder.com/150x225?text=No+Image'}
-              alt={movie.title}
-            />
-            <span className="movie-card-title">{movie.title}</span>
-          </div>
+          />
         ))}
       </div>
     </div>
@@ -62,3 +76,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
+

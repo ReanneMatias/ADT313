@@ -1,0 +1,106 @@
+.view-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.movie-banner {
+  background-color: #222;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.movie-title {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.movie-overview {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+.cast-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.actor-card {
+  flex: 1 1 calc(33% - 20px);
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.actor-photo {
+  width: 100%;
+  height: 250px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.actor-info {
+  margin-top: 10px;
+}
+
+.actor-name {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.actor-character {
+  color: gray;
+}
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.movie-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.video-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.video-item {
+  /* width: 100%; */
+  max-width: 600px;
+}
+
+iframe {
+  width: 100%;
+  height: 315px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+

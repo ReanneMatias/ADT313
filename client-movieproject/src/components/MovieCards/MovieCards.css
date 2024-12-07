@@ -2,7 +2,7 @@
   max-width: 240px;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #1e1e1e; /* Dark background for a cinematic feel */
+  background-color: #1e1e1e; 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
@@ -33,7 +33,7 @@
 .card .card-info h4 {
   font-size: 18px;
   font-weight: 600;
-  color: #7fd0f3; /* Gold color for movie title */
+  color: #7fd0f3; 
   margin-bottom: 8px;
 }
 
@@ -42,5 +42,4 @@
   line-height: 1.6;
   color: #bbb;
 }
-
 
