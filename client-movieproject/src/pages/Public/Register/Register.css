@@ -12,11 +12,11 @@
 }
 
 .main-container {
-  width: 480px; /* Slightly wider to accommodate more form fields */
+  width: 480px; 
   border-radius: 1rem;
-  background-color: rgba(30, 30, 60, 0.95); /* Deep bluish-gray with enhanced transparency */
+  background-color: rgba(30, 30, 60, 0.95); 
   padding: 3rem;
-  color: #e0f7fa; /* Light cyan for text contrast */
+  color: #e0f7fa; 
   display: flex;
   flex-direction: column;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
@@ -25,7 +25,7 @@
 .main-container h3 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #00d1ff; /* Bright cyan for heading */
+  color: #00d1ff; 
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
@@ -34,8 +34,8 @@
 
 .form-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two-column layout */
-  gap: 1.5rem; /* Ample spacing for a clean look */
+  grid-template-columns: 1fr 1fr; 
+  gap: 1.5rem; 
 }
 
 .form-group {
@@ -47,7 +47,7 @@
 }
 
 .form-group label {
-  color: #b0bec5; /* Light gray-blue for labels */
+  color: #b0bec5; 
   margin-bottom: 8px;
   font-weight: 500;
   text-transform: capitalize;
@@ -56,9 +56,9 @@
 .form-group input {
   padding: 0.9rem;
   font-size: 1rem;
-  background: #1a1f3a; /* Deep navy for inputs */
-  color: #e0f7fa; /* Cyan text for readability */
-  border: 1px solid #3f51b5; /* Subtle blue border */
+  background: #1a1f3a; 
+  color: #e0f7fa; 
+  border: 1px solid #3f51b5; 
   border-radius: 6px;
   outline: none;
   width: 100%;
@@ -67,15 +67,15 @@
 }
 
 .form-group input:focus {
-  border: 2px solid #00d1ff; /* Cyan border on focus */
+  border: 2px solid #00d1ff; 
 }
 
 .form-group.full-width {
-  grid-column: span 2; /* Fields that span both columns */
+  grid-column: span 2; 
 }
 
 .submit-container {
-  grid-column: span 2; /* Full-width button */
+  grid-column: span 2; 
   margin-top: 1.5rem;
   text-align: center;
 }
@@ -83,7 +83,7 @@
 .btn-register {
   display: inline-block;
   width: 100%;
-  background: linear-gradient(to right, #1e90ff, #00d1ff); /* Cool gradient */
+  background: linear-gradient(to right, #1e90ff, #00d1ff); 
   padding: 0.9rem;
   text-align: center;
   color: #fff;
@@ -102,10 +102,10 @@
 }
 
 .reg-container {
-  grid-column: span 2; /* Centers additional info below the form */
+  grid-column: span 2; 
   margin-top: 1.2rem;
   font-size: 1rem;
-  color: #b0bec5; /* Light gray-blue for text */
+  color: #b0bec5; 
   text-align: center;
 }
 

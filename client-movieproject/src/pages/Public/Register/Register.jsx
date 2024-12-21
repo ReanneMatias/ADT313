@@ -11,7 +11,7 @@ function Register() {
     lastName: '',
     middleName: '',
     contactNo: '',
-    role: 'user', // Default role
+    role: 'user', 
   });
   const navigate = useNavigate();
   const [status, setStatus] = useState('idle');
@@ -36,7 +36,7 @@ function Register() {
 
         alert('User registered successfully');
 
-        // Show spinner for exactly 3 seconds before logging in
+        
         setTimeout(async () => {
           try {
             const res = await axios({
