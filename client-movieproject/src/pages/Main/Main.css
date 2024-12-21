@@ -2,7 +2,7 @@
   display: flex;
   overflow: hidden;
   max-height: 100vh;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Gradient background */
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
   font-family: 'Roboto', sans-serif;
 }
 
